@@ -1,0 +1,41 @@
+
+.stats-barchart-container{
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+    margin: 8px auto;
+    width: 100%;
+}
+
+.stats-barchart-row{
+    display: flex;
+    margin-bottom: 8px;
+}
+
+.stats-barchart-key{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 4px;
+    width: 5%;
+}
+
+.stats-barchart-bar{
+    background-color: var(--wintergrey);
+    padding: 4px;
+    min-width: 12px;
+    max-width: 12px;
+    animation: barchart-scale 0.6s ease-in-out forwards;
+}
+
+@keyframes barchart-scale {
+    from {max-width: 12px;}
+    to {max-width: 100%;}
+}
+
+.stats-barchart-value{
+    margin: 0;
+    text-align: right;
+    color: white;
+    margin-right: 2px;
+}

@@ -1,0 +1,54 @@
+.tetris-info-controls{
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 36px;
+}
+
+.tetris-info-container{
+    flex: 50%;
+    margin-top: 12px;
+    margin-left: auto;
+    margin-right: auto;
+    order: 0;
+}
+
+.tetris-game{
+    flex: 50%;
+    display: flex;
+    justify-content: center;
+    order: 1;
+}
+
+.tetris-game-container{
+    position:fixed;
+}
+
+.tetris-layout{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.tetris-controls-info-line{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+@media (max-width: 768px){
+    .tetris-info-container{
+        order: 2;
+        flex: 100%;
+    }
+    .tetris-info-controls{
+        width: 100%;
+    }
+    .tetris-game{
+        order: 1;
+        flex: 100%;
+    }
+    .tetris-game-container{
+        position: relative;
+    }
+}

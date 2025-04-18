@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="cross" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <g id="Layer_6" data-name="Layer 6">
+    <rect x="-1.88" y="114.98" width="259.76" height="26.04" rx="13.02" ry="13.02" transform="translate(309.02 128) rotate(135)" style="stroke: #000; stroke-miterlimit: 10; stroke-width: .5px;"/>
+    <rect x="-1.88" y="114.98" width="259.76" height="26.04" rx="13.02" ry="13.02" transform="translate(128 -53.02) rotate(45)" style="stroke: #000; stroke-miterlimit: 10; stroke-width: .5px;"/>
+  </g>
+</svg>

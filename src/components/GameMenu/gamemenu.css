@@ -1,0 +1,13 @@
+.pt-serif {
+    font-family: "PT Serif", serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+.game-start{
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    text-align: center;
+    margin-bottom: 64px;
+}

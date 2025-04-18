@@ -1,0 +1,46 @@
+button {
+    all: unset
+}
+
+.mobile-keyboard-container{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+}
+
+.mobile-keyboard-row{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.mobile-keyboard-cell{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 3px;
+    padding: 3px;
+    background-color: var(--wintergrey-light);
+    border-radius: 0.25rem;
+    color: black;
+    font-size: 5.5vw;
+    font-weight: 600;
+    min-width: 6.5vw;
+    min-height: 10vw;
+    max-height: 10vw;
+    transition: background-color 0.1s linear;
+}
+
+.mobile-keyboard-cell:active{
+    background-color: var(--wintergrey);
+}
+
+.mobile-keyboard-backspace{
+    min-width: 10vw;
+}
+
+.mobile-keyboard-enter{
+    font-size: 3vw;
+    min-width: 10vw;
+}

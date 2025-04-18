@@ -1,0 +1,79 @@
+html {
+    --solarwhite: #fdf6e3;
+    --solarwhite-2: #eee8d5;
+    --solarwhite-3: #dad3bd;
+    --solargrey-v-light: #f2f7f7;
+    --solargrey-light: #93a1a1;
+    --solargrey-med: #839496;
+    --solargrey-dark: #657b83;
+    --solargrey-v-dark: #586e75;
+    --solarblack: #073642;
+    --solarblack-2: #002b36;
+
+    --winterwhite: #f6fbff;
+    --wintergrey: #a5aaaf;
+    --wintergrey-light: #c3c7ca;
+    --wintergrey-dark: #304046;
+    --winterblue: #3483eb;
+    --winterblue-pale: #8baff7;
+    --winteramber: #F5B53D;
+    --winterorange-pale: #f6c27d;
+    --winterpink-pale: #f197bd;
+
+    --solaryellow: #b58900;
+    --solarorange: #cb4b16;
+    --solarred: #dc322f;
+    --solarmagenta: #d33682;
+    --solarviolet: #6c71c4;
+    --solarblue: #268bd2;
+    --solarcyan: #2aa198;
+    --solargreen: #859900;
+    --solarbrown: #8c562d;
+
+    --solarbrown-light: #75554b;
+    --solarblue-royal: #0A2463;
+    --solarblue-polynesian: #094D92;
+
+    --solarblue-dark: #1e6fa8;
+    --solarblue-grey: #377aaa;
+    --solarorange-bright: #ee8631;
+
+    --sm: 576;
+    --md: 768;
+    --lg: 992;
+    --xl: 1200;
+}
+
+.layout-body{
+    margin: 0px;
+    height: max-content;
+    background-color: #fdf6e3;
+    z-index: -100;
+    position: relative;
+}
+
+.layout-content{
+    min-height: max-content;
+    height: max-content;
+    width: calc(100vw - 144px);
+    margin-top: 0px;
+    padding: 36px 72px;
+    z-index: -100;
+    position: relative;
+}
+
+.text-serif{
+    font-family: 'PT Serif', serif;
+}
+
+@media (max-width: 768px){
+    .layout-content {
+        width: calc(100vw - 16px);
+        padding: 8px;
+        margin-top: 8px;
+    }
+}
+
+.paragraph{
+    
+}

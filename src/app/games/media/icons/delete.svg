@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="delete" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <path d="M239.22,128v74.37c0,8.63-7,15.63-15.63,15.63h-119.08c-4.43,0-8.65-1.88-11.62-5.17L16.54,128,92.88,43.17c2.96-3.29,7.19-5.17,11.62-5.17h119.08c8.63,0,15.63,7,15.63,15.63v74.37Z" style="fill: none; stroke: #000; stroke-miterlimit: 10; stroke-width: 12px;"/>
+  <rect x="80.47" y="120.01" width="159.32" height="15.97" rx="7.99" ry="7.99" transform="translate(363.86 105.28) rotate(135)"/>
+  <rect x="80.47" y="120.01" width="159.32" height="15.97" rx="7.99" ry="7.99" transform="translate(137.41 -75.74) rotate(45)"/>
+</svg>

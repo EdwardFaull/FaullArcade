@@ -1,0 +1,110 @@
+.pt-serif{
+    font-family: "PT Serif", serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+.recipe-container{
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 400px;
+    box-sizing: border-box;
+}
+
+.recipe-content-container{
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+}
+
+.recipe-ingredients-container{
+    flex: 0 0 33%;
+}
+.recipe-steps-container{
+    flex: 1 0 50%;
+}
+
+
+.recipe-ingredients-table{
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+    display: table;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 0.5px solid rgba(0, 0, 0, 0.5);
+    box-shadow: 5px 5px 10px -5px rgba(0, 0, 0, 0.25);
+}
+
+.recipe-ingredients-row{
+    display: table-row;
+}
+
+.recipe-ingredients-cell{
+    padding: 8px;
+    display: table-cell;
+    border: 0.5px solid rgba(0, 0, 0, 0.5);
+}
+
+.recipe-steps-line{
+    margin-bottom: 16px;
+}
+
+.recipe-steps-box{
+    display: flex;
+    border-radius: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    width: 80%;
+    margin-bottom: 16px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: var(--solarwhite-2);
+    overflow: hidden;
+    box-shadow: 5px 5px 10px -5px rgba(0, 0, 0, 0.25);
+}
+
+.recipe-steps-box-text{
+    padding: 12px;
+}
+
+.recipe-steps-box-accent{
+    flex: 0 0 12px;
+    background-color: var(--solarbrown-light);
+}
+
+.cell-quantity{
+    background-color: var(--solarbrown-light);
+}
+
+.cell-item{
+    background-color: var(--solarwhite-2);
+}
+
+.recipe-text-quantity{
+    color: var(--solargrey-v-light);
+}
+
+.recipe-text{
+    color: var(--solarblack);
+}
+
+.recipe-vr{
+    flex: 0 0 0%;
+    height: auto;
+    margin-left: 16px;
+    margin-right: 16px;
+    border-left: 1px solid var(--solarbrown-light);
+}
+
+@media (max-width: 768px){
+    .recipe-ingredients-container{
+        flex-basis: 100%;
+    }
+    .recipe-steps-container{
+        flex-basis: 100%;
+    }
+    .recipe-vr{
+        display: none;
+    }
+}

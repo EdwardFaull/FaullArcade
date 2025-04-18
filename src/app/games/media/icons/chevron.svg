@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <path d="M180.84,53.43c4.81-4.81,4.81-12.6,0-17.41s-12.6-4.81-17.41,0l-.02.04-91.87,91.86v.15l91.87,91.87.02.04c4.81,4.81,12.6,4.81,17.41,0s4.81-12.6,0-17.41l-74.47-74.64,74.48-74.49h-.01Z" style="stroke: #000; stroke-miterlimit: 10; stroke-width: .25px;"/>
+</svg>

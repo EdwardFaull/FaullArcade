@@ -1,0 +1,29 @@
+
+.stats-numbers-hr{
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.5);
+    margin: 0;
+}
+
+.stats-numbers-container{
+    width: 80%;    
+    margin-top: 24px;
+    margin-bottom: 24px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.stats-numbers-flex{
+    display: flex;
+    margin: 8px 0;
+    justify-content: space-evenly;
+}
+
+.stats-numbers-item{
+    width: 50%;
+    text-align: center;
+}
+
+.stats-numbers-number{
+    font-size: 26px;
+}

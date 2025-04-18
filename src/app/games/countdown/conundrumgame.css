@@ -1,0 +1,192 @@
+@font-face {
+    font-family: 'Futura Extra';
+    src: url("../media/fonts/Futura Extra Black Condensed BT.ttf");
+}
+
+.conundrum-container{
+    display: flex;
+    position: relative;
+    width: fit-content;
+    flex-direction: column;
+    height: fit-content;
+    align-items: center;
+    background-color: var(--solarblue);
+    border: 5px solid rgba(255, 255, 255, 0.2);
+    box-shadow: inset 0px 0px 12px rgba(0, 0, 0, 0.15), 5px 5px 15px rgba(0, 0, 0, 0.25);
+    padding: 48px;
+}
+
+.conundrum-fade-in{
+    opacity: 0%;
+    animation: conundrum-open .8s ease-out forwards;
+    animation-delay: .5s;
+}
+
+@keyframes conundrum-open{
+    from { top: 30px; opacity: 0% }
+    to { top: 0; opacity: 100% }
+}
+
+.conundrum-quiz-container{
+    display:inherit;
+    width: inherit;
+    flex-direction: inherit;
+    align-items: inherit;
+    position: relative;
+    z-index: 3;
+}
+
+.conundrum-guesses-container{
+    display: flex;
+    flex-direction: column-reverse;
+    position: relative;
+    z-index: 2;
+    transition: height 1s linear;
+}
+
+.conundrum-button{
+    background: var(--solarblue-grey);
+    border: none;
+    color: rgba(255, 255, 255, 0.5);
+    outline: 5px solid var(--solarblue-grey);
+    padding: 8px 16px 8px 16px;
+    margin: 5px;
+    cursor: default;
+    display: inline-flex;
+    font-size: 24px;
+}
+
+.button-active{
+    background: var(--solarblue-dark);
+    color: #FFFFFF;
+    outline: 5px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+}
+
+.button-active:hover{
+    background: #FFFFFF;
+    color: var(--solarblue);
+    outline-color: rgb(255, 255, 255);
+}
+
+.button-active:active{
+    background: var(--solarblue);
+}
+
+.cell{
+    display: flex;
+    width: 60px;
+    height: 60px;
+    justify-content: center;
+    align-items: center;
+    box-shadow: inset 0px 0px 17px rgba(0, 0, 0, 0.35);
+}
+
+.answer{
+    width: 60px;
+    height: 60px;
+    border-width: 5px;
+    transform: rotateX(0deg) translateZ(35px);
+}
+
+.guess{
+    width: 50px;
+    height: 50px;
+    border-width: 4px;
+}
+
+.no-right{
+    border-right: none;
+}
+
+.conundrum-text{
+    font-family: 'Futura Extra', serif;
+}
+
+.text-white{
+    color: white;
+}
+
+.conundrum-text-guess{
+    font-size: 24px;
+    text-align: center;
+    opacity: 0%;
+    animation: guess-open .4s ease-out forwards;
+    animation-delay: .5s;   
+    position: relative;
+    margin-bottom: 8px;
+    margin-top: 0px;
+}
+
+@keyframes guess-open{
+    from { top: -50px; opacity: 0% }
+    to { top: 0; opacity: 100% }
+}
+
+.board{
+    font-size: 32px;
+}
+
+.input{
+    font-size: 32px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    text-transform: uppercase;
+    border: none;
+    caret-color: white;
+}
+
+.answer-red{
+    background-color: transparent;
+    animation: redflash 0.5s linear infinite;
+}
+
+@keyframes redflash {
+    50%{
+        background-color: var(--solarred);
+    }
+}
+
+@keyframes greenflash {
+    50%{
+        background-color: var(--solargreen);
+    }
+}
+
+.answer-green{
+    background-color: transparent;
+    animation: greenflash 0.5s linear infinite;
+}
+
+@media (max-width: 768px){
+    .conundrum-container{
+        padding: 8px;
+        border-width: 3px;
+    }
+    .cell{
+        width: 7vw;
+        height: 7vw;
+    }
+    .input{
+        font-size: 5.5vw;
+    }
+    .board{
+        font-size: 5.5vw;
+    }
+    .conundrum-button{
+        font-size: 5vw;
+    }
+    .guess{
+        width: 6vw;
+        height: 6vw;
+    }
+    .conundrum-text-guess{
+        font-size: 4vw;
+    }
+}
+

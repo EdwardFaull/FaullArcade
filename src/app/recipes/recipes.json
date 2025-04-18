@@ -1,0 +1,240 @@
+{
+    "recipes": [
+        {
+            "title": "Chocolate Mug Cake",
+            "id": "mug-cake",
+            "accent": "brown-light",
+            "servings": "1",
+            "tags": ["dessert", "chocolate", "cake", "easy"],
+            "description": "This is, at most, a semi-monthly affair in the Faull household. The eight teaspoons-per-serving of sugar is certainly a contributing factor, but on the other hand it fills the space between family birthdays and the subsequent lack of cake quite well. It's also something that would be great to make vegan, so I feel less bad about it. However, that requires conviction and purchasing aquafaba. Maybe next year.",
+            "cardDescription": "An extremely simple microwave cake recipe. It's even easier than making a real cake.",
+            "cardImage": "",
+            "ingredients": [
+                {
+                    "title": "mug cake", 
+                    "ingredients": [
+                        {
+                            "quantity": "",
+                            "unit": "",
+                            "item": "A mug"
+                        },
+                        {
+                            "quantity": "35",
+                            "unit": "g",
+                            "item": "Self-raising flour"
+                        },
+                        {
+                            "quantity": "40",
+                            "unit": "g",
+                            "item": "Caster sugar"
+                        },
+                        {
+                            "quantity": "15",
+                            "unit": "g",
+                            "item": "Cocoa powder"
+                        },
+                        {
+                            "quantity": "",
+                            "unit": "",
+                            "item": "Pinch of salt"
+                        },
+                        {
+                            "quantity": "1",
+                            "unit": "",
+                            "item": "Medium egg"
+                        },
+                        {
+                            "quantity": "3",
+                            "unit": "tbsp",
+                            "item": "Semi-skimmed milk"
+                        },
+                        {
+                            "quantity": "2",
+                            "unit": "tbsp",
+                            "item": "Olive or cooking oil"
+                        },
+                        {
+                            "quantity": "",
+                            "unit": "",
+                            "item": "Drop of vanilla extract"
+                        },
+                        {
+                            "quantity": "",
+                            "unit": "",
+                            "item": "White and dark chocolate chips"
+                        }
+                    ]
+                }
+            ],
+            "steps": [
+                {
+                    "title": "mug cake",
+                    "steps": 
+                    [
+                        "Put all of the dry ingredients into the mug and mix well with a fork.",
+                        "Drop in the wet ingredients and mix, making sure there are no clumps of flour hidden in the bottom edge of the mug.",
+                        "Scatter the chocolate chips on top.",
+                        "Place in the microwave on full blast for 60 seconds. Check that it's appropriately firm and gooey, and then enjoy."
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "French Bistro Salad",
+            "id": "walnut-mustard-salad",
+            "tags": ["french", "side", "salad"],
+            "accent": "blue-polynesian",
+            "description": "French cuisine is regarded as some of the finest in the world. The food is certainly tasty, but its accomplishments feel blunted when you accept that anything with a whole pat of butter in tastes good. Anyway, my great-great-grandfather was French. He went to prison in England for larceny, and if history tells us anything, it's that those whose thefts see justice are not the ones wealthy enough to swan around haute cuisine joints. Fortunately, this is a cheap and unsubtle (a bit like him, considering he was caught) bistro salad, so I suspect he would approve.",
+            "servings": "5",
+            "cardDescription": "An apparently classic and easy to make salad if you're ever in the mood for steak.",
+            "cardImage": "",
+            "ingredients": [
+                {
+                    "title": "dressing", 
+                    "ingredients": [
+                        {
+                            "quantity": "4",
+                            "unit": "tbsp",
+                            "item": "Extra virgin olive oil"
+                        },
+                        {
+                            "quantity": "1-2",
+                            "unit": "tbsp",
+                            "item": "White wine vinegar"
+                        },
+                        {
+                            "quantity": "4",
+                            "unit": "tsp",
+                            "item": "Dijon mustard"
+                        },
+                        {
+                            "quantity": "1",
+                            "unit": "tbsp",
+                            "item": "Lemon juice"
+                        },
+                        {
+                            "quantity": "",
+                            "unit": "",
+                            "item": "Salt and pepper"
+                        },
+                        {
+                            "quantity": "",
+                            "unit": "",
+                            "item": "Honey (to taste)"
+                        }
+                    ]
+                },
+                {
+                    "title": "greens", 
+                    "ingredients": [
+                        {
+                            "quantity": "",
+                            "unit": "",
+                            "item": "Lettuce - which type is irrelevant"
+                        },
+                        {
+                            "quantity": "",
+                            "unit": "",
+                            "item": "Walnut halves"
+                        }
+                    ]
+                }
+            ],
+            "steps": [
+                {
+                    "title": "",
+                    "steps": 
+                    [
+                        "Add the olive oil, mustard, lemon juice, and vinegar to a small bowl and whisk until well-mixed together.",
+                        "Once whisked, add the honey. I use roughly 1tsp of honey.",
+                        "Add salt and pepper to taste, and make any adjustments to the dressing by adding more of any of the other ingredients.",
+                        "Chop the lettuce roughly and the walnuts into small chunks.",
+                        "To serve, toss the greens, nuts, and dressing together in a large bowl. Put some of those big wooden serving sporks in it to make it fancy."
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "Feta and Harissa Pasta Bake",
+            "id": "feta-tomato-pasta",
+            "tags": ["pasta", "vegetarian"],
+            "accent": "red",
+            "description": "I've heard that the feta and tomato pasta bake was a short-lived TikTok trend a few years ago. Fortunately, I don't have a TikTok account (they didn't give me a job), so heard about it through a YouTube video. As with all old trends, it now has its detractors howling from the rooftops that that it looked like sick. These people have once again forgotten that you eat with your mouth, not your eyes. I first cooked this when my parents went away for two weeks to America at the beginning of October. I had an obscene quantity of tomatoes from the garden to deal with, and I didn't actually like them that much. I am now happily converted. A better English tomato season is one legitimate benefit of climate change - an acceptable exchange, I think.",
+            "servings": "1",
+            "cardDescription": "Low effort pasta meal that's 90% done in the oven.",
+            "cardImage": "",
+            "ingredients": [
+                {
+                    "title": "pasta", 
+                    "ingredients": [
+                        {
+                            "quantity": "8-10",
+                            "unit": "",
+                            "item": "Cherry or plum - tomatoes"
+                        },
+                        {
+                            "quantity": "30",
+                            "unit": "g",
+                            "item": "Feta cheese"
+                        },
+                        {
+                            "quantity": "2",
+                            "unit": "tbsp",
+                            "item": "Extra virgin olive oil"
+                        },
+                        {
+                            "quantity": "2",
+                            "unit": "tsp",
+                            "item": "Harissa paste"
+                        },
+                        {
+                            "quantity": "1",
+                            "unit": "clove",
+                            "item": "Garlic"
+                        },
+                        {
+                            "quantity": "1/2",
+                            "unit": "",
+                            "item": "Red/orange/yellow bell pepper"
+                        },
+                        {
+                            "quantity": "100",
+                            "unit": "g",
+                            "item": "Pasta"
+                        },
+                        {
+                            "quantity": "50",
+                            "unit": "g",
+                            "item": "Garden peas"
+                        },
+                        {
+                            "quantity": "4-6",
+                            "unit": "leaves",
+                            "item": "Fresh basil"
+                        },
+                        {
+                            "quantity": "",
+                            "unit": "",
+                            "item": "Salt and pepper"
+                        }
+                    ]
+                }
+            ],
+            "steps": [
+                {
+                    "title": "",
+                    "steps": 
+                    [
+                        "Chop finely or mince your garlic, and slice the bell pepper into bite-sized pieces.",
+                        "Place the block of feta in the middle of a small roasting dish, surround with the tomatoes, pepper, and garlic bits. Pour half of the olive oil on top of the feta to make sure it doesn't burn, and cover the rest of the dish with the remaining oil and harissa paste. Salt and pepper to taste. Give it a shake to make sure the tomatoes and peppers are well-coated in the oils.",
+                        "Roast in the oven for 35 minutes at 200°C (fan 180°C).",
+                        "While waiting for the sauce to cook down, boil your pasta and steam some peas. I'm lazy and use the microwave for the peas. Just fill the bottom of a pyrex dish with water and put it in.",
+                        "Take your roasting tin out of the oven and use a masher to burst the tomatoes and smush the cheese. Do this until it is all combined - it won't look homogeneous but it will mix decently enough. Strain the pasta and mix it into the roasting tin along with a few tablespoons of the pasta water.",
+                        "Put the roasting tin back into the oven for a further five minutes.",
+                        "After the five minutes is up, turn the oven off and mix the peas through the pasta and half of the basil, finely chopped. Serve in a bowl with the rest of the basil scattered on top."
+                    ]
+                }
+            ]
+        }
+    ]
+}

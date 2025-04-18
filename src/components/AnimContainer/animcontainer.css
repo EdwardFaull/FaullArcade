@@ -1,0 +1,26 @@
+
+.anim-container{
+    position: relative;
+}
+
+.anim-container-close{
+    animation: anim-close .6s ease-in-out forwards;
+}
+
+.anim-container-open{
+    opacity: 0%;
+    top: 0px;
+    animation: anim-open 1.2s ease-in-out forwards;
+}
+
+@keyframes anim-close {
+    0% {opacity: 100%; top: 0px; }
+    20% {opacity: 100%; top: 5px; }
+    100% { opacity: 0%; top: -50px; }
+}
+
+@keyframes anim-open {
+    0% {opacity: 0%; top: 50px; }
+    70% {opacity: 100%; top: -10px; }
+    100% { opacity: 100%; top: 0px; }
+}

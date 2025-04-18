@@ -1,0 +1,316 @@
+.atkinson-hyperlegible-mono {
+    font-family: "Atkinson Hyperlegible Mono", monospace;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: normal;
+}
+
+.pt-serif {
+    font-family: "PT Serif", serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+.countdown-container{
+    height: 90vh;
+    margin: auto;
+    width: 100vw;
+    display: flex;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    right: 0px;
+    top: 0px;
+}
+
+.countdown-box{
+    margin-top: 32px;
+    width: 90%;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    border-radius: 30px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+    animation: box-width .5s cubic-bezier(.23,.53,.69,.88), box-height .5s cubic-bezier(.46,.05,.59,.82);
+    transition: background-color 0.75s ease-in-out;
+}
+
+@keyframes box-width{
+    0% {width: 50px;}
+    100% {width: 90%;}
+}
+@keyframes box-height{
+    0% {height: 50px;}
+    100% {height: 90%;}
+}
+
+.countdown-difficulty-button{
+    position:absolute;
+    top: 0px;
+    right: 0px;
+}
+
+.countdown-blue-pale{
+    background-color: var(--winterblue-pale);
+}
+
+.countdown-white{
+    background-color: var(--winterwhite);
+}
+
+.countdown-start{
+    text-align: center;
+    margin-bottom: 64px;
+}
+
+.countdown-game-wrapper{
+    position: relative;
+    display: inherit;
+    justify-content: inherit;
+    align-items: inherit;
+    width: 100%;
+    height: calc(100% - 4rem);
+    margin-top: 4rem;
+}
+
+.countdown-game{
+    width: fit-content;
+    animation: game-fade 0.5s ease-in-out;
+}
+
+@keyframes game-fade {
+    from {opacity: 0%;}
+    to {opacity: 100%;}
+}
+
+.countdown-button-start{
+    background-color: black;
+    border-radius: 18px;
+    color: white;
+    border: none;
+    font-size: 16px;
+    padding: 8px 24px;
+}
+
+.countdown-prompt-table{
+    display: table;
+    border-spacing: 8px;
+    margin: 0 auto;
+}
+
+.countdown-answer-table{
+    position: relative;
+    display: table;
+    border-spacing: 8px;
+    margin: 0 auto 16px auto;
+    animation: countdown-table-fade 1s ease-in-out forwards;
+}
+
+@keyframes countdown-table-fade {
+    from {opacity: 0%;}
+    to {opacity: 100%;}
+}
+
+.countdown-row{
+    display: table-row;
+}
+
+.countdown-blue{
+    background-color: transparent;
+    animation: countdown-square-flip 1s linear forwards, countdown-anim-blue 1s linear forwards;
+}
+
+@keyframes countdown-anim-blue {
+    0% { background-color: transparent; }
+    49% {background-color: transparent;}
+    50% {background-color: var(--winterblue);}
+    100% {background-color: var(--winterblue); border: none; }
+}
+
+.countdown-amber{
+    background-color: transparent;
+    animation: countdown-square-flip 1s linear forwards, countdown-anim-amber 1s linear forwards;
+}
+@keyframes countdown-anim-amber {
+    0% { background-color: transparent; }
+    49% {background-color: transparent;}
+    50% {background-color: var(--winteramber);}
+    100% {background-color: var(--winteramber); border: none; }
+}
+
+.countdown-grey{
+    background-color: transparent;
+    animation: countdown-square-flip 1s linear forwards, countdown-anim-grey 1s linear forwards;
+}
+@keyframes countdown-anim-grey {
+    0% { background-color: transparent; }
+    49% {background-color: transparent;}
+    50% {background-color: var(--wintergrey);}
+    100% {background-color: var(--wintergrey); border: none;}
+}
+
+.countdown-blank{
+    background-color: transparent;
+    box-shadow: none !important;
+}
+
+@keyframes countdown-square-flip{
+    0% { transform: rotateX(0deg) }
+    50% { transform: rotateX(90deg) }
+    100% { transform: rotateX(0deg)  }
+}
+
+@keyframes countdown-square-open{
+    0% { transform: rotateX(90deg) }
+    100% { transform: rotateX(0deg); border: none; }
+}
+
+.countdown-square-prompt{
+    background-color: var(--winterblue);
+    transform: rotateX(90deg);
+    animation: countdown-square-open 0.75s ease-in-out forwards;
+}
+
+.countdown-square{
+    width: 75px;
+    height: 75px;
+    max-width: 75px;
+    max-height: 75px;
+    display: table-cell;
+    vertical-align: middle;
+    border-radius: 20%;
+    box-sizing: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    transition: box-shadow 1s ease-in-out, border 1s ease-in-out;
+}
+
+.countdown-square-filled{
+    position: relative;
+    animation: square-flash 0.25s ease-in-out forwards
+}
+
+@keyframes square-flash {
+    0% {transform: scale(1);}
+    50% {transform: scale(1.15);}
+    100% {transform: scale(1);}
+}
+
+.countdown-input{
+    width: 100%;
+    height: 100%;
+    border: none;
+    padding: 0;
+    text-transform: uppercase;
+    background-color: transparent;
+}
+
+.countdown-text{
+    text-align: center;
+    margin: 0;
+    font-size: 36px;
+}
+
+.countdown-text-light{
+    font-weight: 400;
+}
+
+.countdown-text-med{
+    font-weight: 600;
+}
+
+.countdown-text-white{
+    color: var(--winterwhite);
+}
+
+.countdown-answer-text-white{
+    color: var(--wintergrey-dark);
+    animation: countdown-anim-text-white 1s linear forwards;
+}
+
+@keyframes countdown-anim-text-white {
+    0% { color: var(--wintergrey-dark); }
+    49% {color: var(--wintergrey-dark); }
+    50% {color: var(--winterwhite);}
+    100% {color: var(--winterwhite);}
+}
+
+.countdown-text-grey{
+    color: var(--wintergrey-dark);
+}
+
+.countdown-text-blue{
+    color: var(--winterblue);
+}
+.countdown-text-amber{
+    color: var(--winteramber);
+}
+
+.countdown-buttons-container{
+    display: flex;
+    justify-content: space-between;
+    margin: 0 8px;
+}
+
+.countdown-enter-button{
+    background-color: var(--wintergrey);
+    border: none;
+    border-radius: 1.5vw;
+    font-size: 32px;
+    padding: 8px;
+    height: 75px;
+    width: 158px;
+    cursor: pointer;
+}
+
+.countdown-delete-button{
+    background-color: var(--wintergrey);
+    border: none;
+    border-radius: 1.5vw;
+    font-size: 32px;
+    padding: 8px;
+    height: 75px;
+    width: 117px;
+    cursor: pointer;
+}
+
+.countdown-stats{
+    width: 60%;
+    height: 100%;
+    margin-top: 4rem;
+}
+
+.countdown-stats-close{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.countdown-stats-close-button{
+    all: unset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 4px;
+    opacity: 0%;
+    animation: close-fade 0.5s 0.5s ease-in-out forwards;
+}
+
+@keyframes close-fade {
+    from {opacity: 0%;}
+    to {opacity: 50%;}
+}
+
+
+
+@media(max-width: 768px){
+    .countdown-prompt-table{ border-spacing: 0.5vw; margin-top: 48px;}
+    .countdown-answer-table{ border-spacing: 0.5vw; }
+    .countdown-square{ width: 10vw; height: 10vw; }
+    .countdown-text{ font-size: 5vw; }
+    .countdown-enter-button{ height: 9vw; width: 18vw; font-size: 4.5vw; }
+    .countdown-difficulty-button{ position: relative; top: 0px; right: 0px; }
+    .countdown-game-wrapper{ display: flex; flex-direction: column-reverse; align-items: flex-end; justify-content: flex-end; }
+    .countdown-stats{width: 100%;}
+}
