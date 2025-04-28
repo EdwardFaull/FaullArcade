@@ -30,7 +30,7 @@ export default function MinesweeperGame() {
   const [action, setAction] = useState<"open" | "flag">("open");
   
   const [gameState, setGameState] = useState<"menu" | "started" | "won" | "lost">("menu");
-  const [showPanel, setShowPanel] = useState<"menu" | "game" | "stats">("menu");
+  const [showPanel, setShowPanel] = useState<"menu" | "game" | "stats" | "help">("menu");
   const [difficulty, setDifficulty] = useState<MinesweeperDifficulty>("beginner");
   const difficulties : MinesweeperDifficulty[] = ['beginner', 'intermediate', 'expert'];
   const [bestTimes, setBestTimes] = useState<{[key : string]: number}>({});
@@ -351,6 +351,11 @@ export default function MinesweeperGame() {
                 </AnimContainer>
               </>
             </div>
+            }
+            {
+              showPanel === 'help' && <>
+                
+              </>
             }
         </GameContainer>
       </GameProvider>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="stats" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <g id="Layer_10" data-name="Layer 10">
+    <rect x="31.86" y="118.08" width="64.06" height="106.71" style="fill: none; stroke: #000; stroke-miterlimit: 10; stroke-width: 12px;"/>
+    <rect x="95.92" y="49.84" width="64.06" height="174.94" style="fill: none; stroke: #000; stroke-miterlimit: 10; stroke-width: 12px;"/>
+    <rect x="160.08" y="91.41" width="64.06" height="133.37" style="fill: none; stroke: #000; stroke-miterlimit: 10; stroke-width: 12px;"/>
+  </g>
+</svg>

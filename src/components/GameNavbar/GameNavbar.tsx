@@ -8,6 +8,7 @@ export type GameNavbarType = {
     children?: ReactNode;
     navbarAlign?: string;
     solidBg?: boolean;
+    enabled? : boolean;
 }
 
 export type GameNavbarButtonType = {
@@ -28,7 +29,7 @@ export const GameNavbarButton = ({button, onClick, animate=false} : GameNavbarBu
     )
 }
 
-export default function GameNavbar( {showLeave=true, children=<></>, navbarAlign="flex-end", solidBg=false} : GameNavbarType ) {
+export default function GameNavbar( {showLeave=true, children=<></>, navbarAlign="flex-end", solidBg=false, enabled=true} : GameNavbarType ) {
     const router = useRouter();
 
     return (
@@ -39,6 +40,9 @@ export default function GameNavbar( {showLeave=true, children=<></>, navbarAlign
             <div className="game-navbar-buttons-container" style={{justifyContent: navbarAlign}}>
                 {children}
             </div>
+            {
+                !enabled && <div className="game-navbar-overlay" />
+            }
         </div>
     );
 

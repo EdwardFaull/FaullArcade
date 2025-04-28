@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { addToList, checkAnswer, checkCompleted, getConundrumIndex, getStreak, resetStreak, selectConundrum } from "./Countdown";
+import { addToList, checkAnswer, checkCompleted, getConundrumIndex, getStreak, isGuessValid, resetStreak, selectConundrum } from "./Countdown";
 import { Conundrum, Prop } from "@/types";
 import { withCookies } from "react-cookie";
 import "./conundrumgame-redux.css";
@@ -17,6 +17,9 @@ import StatisticsBarChart from "@/components/StatisticsBarChart/StatisticsBarCha
 import Icon from "@/components/Icon/Icon";
 import GameNavbar, { GAME_NAVBAR_ICON_DIM, GameNavbarButton } from "@/components/GameNavbar/GameNavbar";
 import { getDate } from "@/app/utils/Utils";
+import GameDisclosure from "@/components/GameDisclosure/GameDisclosure";
+import useDisclosure from "@/app/utils/useDisclosure";
+import CountdownRow from "./CountdownRow";
 
 
 function CountdownGameRedesign({cookies, animate} : Prop) {
@@ -28,12 +31,16 @@ function CountdownGameRedesign({cookies, animate} : Prop) {
     const [todayCompleted, setTodayCompleted] = useState(false); 
     const [previousGuesses, setPreviousGuesses] = useState<string[]>([]);
     const [previousGuessesColours, setPreviousGuessesColours] = useState<string[][]>([]);
-    const [autoHideGame, setAutoHideGame] = useState(true);
+    const [guessInvalid, setGuessInvalid] = useState(false);
     
     const [streak, setStreak] = useState(0);
     const [difficulty, setDifficulty] = useState<"easy"|"normal">(localStorage.getItem("countdown-difficulty") as "easy"|"normal" || "normal");
     const [gameState, setGameState] = useState<GameState>("menu");
     const [showPanel, setShowPanel] = useState<Panel>("menu");
+
+    const statPanelControls = useDisclosure();
+    const helpPanelControls = useDisclosure();
+    
 
     useEffect(() => {
         setConundrum(selectConundrum());
@@ -45,6 +52,15 @@ function CountdownGameRedesign({cookies, animate} : Prop) {
     }, []);
 
     useEffect(() => {
+        const resetGuess = async () => {
+            await setTimeout(() => setGuessInvalid(false), 750);
+        }
+        if(guessInvalid){
+            resetGuess();
+        }
+    }, [guessInvalid]);
+
+    useEffect(() => {
         const colours : string[][] = [];
         for(let i = 0; i < previousGuesses.length; i++){
             colours.push(getGuessColours(conundrum?.answer || "", previousGuesses[i]));
@@ -52,32 +68,46 @@ function CountdownGameRedesign({cookies, animate} : Prop) {
         setPreviousGuessesColours(colours);
     }, [previousGuesses])
 
+    const handleGameStart = () => {
+        if(gameWon || gameLost){
+            setGameState("finished");
+            setTimeout(() => statPanelControls.onOpen(), 3000);
+        }
+    }
+
     const handleGameWon = () => {
         logStatistics('countdown', true, streak + 1);
         logExtraStat('countdown', `guess-${previousGuesses.length}`);
         setStreak((prevStreak) => prevStreak + 1);
         setTodayCompleted(true);
+        setTimeout(statPanelControls.onOpen, 3000);
     }
     const handleGameLost = () => {
         setTodayCompleted(true);
         logStatistics('countdown', false, 0);
         resetStreak(cookies);
         setStreak(0);
+        setTimeout(statPanelControls.onOpen, 3000);
     }
 
     const handleSubmitButton = () => {   
         if(currentAnswer.length === 9){
-            const newGuesses = addToList(currentAnswer, previousGuesses, cookies);
-            setPreviousGuesses(newGuesses);
-            setCurrentAnswer("");
+            if(isGuessValid(currentAnswer)){
+                const newGuesses = addToList(currentAnswer, previousGuesses, cookies);
+                setPreviousGuesses(newGuesses);
+                setCurrentAnswer("");
 
-            if(conundrum && checkAnswer(currentAnswer, conundrum, cookies)){
-                setGameState("won");
+                if(conundrum && checkAnswer(currentAnswer, conundrum, cookies)){
+                    setGameState("won");
+                }
+                else if(newGuesses.length >= MAX_GUESSES){
+                    setGameState('lost');
+                }
             }
-            else if(newGuesses.length >= MAX_GUESSES){
-                setGameState('lost');
+            else{
+                setGuessInvalid(true);
             }
-        } 
+        }
     }
 
     const handleDeleteButton = () => {
@@ -145,7 +175,7 @@ function CountdownGameRedesign({cookies, animate} : Prop) {
     const statistics = useMemo(() => getStatistics('countdown'), [gameWon, gameLost]);
     const barStatistics = useMemo(() => getBarChartStatistics('countdown-guess', [...Array(MAX_GUESSES).keys()].map((_, i) => (i + 1).toString())), [gameWon, gameLost]);
 
-    useKeyPress(handleKeyPress, undefined, false, [currentAnswer, previousGuesses, conundrum, streak, todayCompleted, gameWon, gameLost]);
+    useKeyPress(handleKeyPress, undefined, true, [currentAnswer, previousGuesses, conundrum, streak, todayCompleted, gameWon, gameLost]);
 
     const menuText = (
             todayCompleted ? (
@@ -156,6 +186,19 @@ function CountdownGameRedesign({cookies, animate} : Prop) {
                 <p>Welcome to Conundrum! Find the 9-letter word to solve the puzzle. Press Play to begin.</p>
             )
     );
+
+    const getCellClass = (i: number, j: number, conundrum: Conundrum) : string => {
+        const colourClass = previousGuesses.length === i ? 
+            "blank" : 
+            previousGuessesColours[i] ? 
+                (difficulty === 'easy' ? 
+                    previousGuessesColours[i][j] : 
+                    (previousGuesses[i] === conundrum.answer ? 'blue' : 'grey')
+                ) : "blank";
+        const filledClass = previousGuesses.length === i && currentAnswer[j] ? "countdown-square-filled" : "";
+        const animateClass = gameState === 'finished' ? "" : (colourClass.includes("blue") ? "countdown-square-correct" : "");
+        return `countdown-square countdown-${colourClass} ${filledClass} ${animateClass}`;
+    }
 
     const conundrumIndex = useMemo(() => getConundrumIndex(), []);
     const dayNode = useMemo(() => getDate(), []);
@@ -173,12 +216,11 @@ function CountdownGameRedesign({cookies, animate} : Prop) {
             <GameContainer
                 menuColour="var(--winterblue-pale)"
                 gameColour="var(--winterwhite)"
-                gameFadeDelay={3000}
-                onGameStart={() => {}}
+                onGameStart={handleGameStart}
                 onGameWon={handleGameWon}
                 onGameLost={handleGameLost}
                 onGameReset={() => {}}>
-                    <GameNavbar solidBg={showPanel !== 'menu'}>
+                    <GameNavbar solidBg={showPanel !== 'menu'} enabled={!(statPanelControls.isOpen || helpPanelControls.isOpen)}>
                         {showPanel === 'game' && <>
                             <ToggleButton 
                                     enabled={previousGuesses.length === 0}
@@ -189,12 +231,48 @@ function CountdownGameRedesign({cookies, animate} : Prop) {
                                     onClass="countdown-text-blue"
                                     initialValue={difficulty === 'normal'}
                                     />
-                            <GameNavbarButton onClick={() => setShowPanel('stats')} button={<Icon iconName="cross" iconProps={{...GAME_NAVBAR_ICON_DIM}}/>} />
-                            <GameNavbarButton onClick={() => console.log('help')} button={<Icon iconName="cross" iconProps={{...GAME_NAVBAR_ICON_DIM}}/>} />
+                            <GameDisclosure 
+                            button={<Icon iconName="stats" iconProps={{...GAME_NAVBAR_ICON_DIM}}/>} 
+                            bg="var(--winterwhite)" 
+                            fullscreen
+                            {...statPanelControls} >
+                                <div className={`countdown-stats`}>
+                                    <h2>Statistics</h2>
+                                    <StatisticsNumbers stats={
+                                        [
+                                            {title: "Played", value: statistics.played},
+                                            {title: "Win %", value: Math.floor(100 * statistics.won / statistics.played) || 0},
+                                            {title: "Current Streak", value: streak},
+                                            {title: "Max Streak", value: statistics.maxStreak}
+                                        ]
+                                    } hr={false}/>
+                                    <StatisticsBarChart 
+                                        title="GUESS DISTRIBUTION"
+                                        highlight={gameLost ? undefined : previousGuesses.length.toString()}
+                                        highlightColour="var(--winterblue)"
+                                        stats={barStatistics}
+                                    />
+                                </div>
+                            </GameDisclosure>
+                            <GameDisclosure button={<Icon iconName="help" iconProps={{...GAME_NAVBAR_ICON_DIM}}/>} bg="var(--winterwhite)" {...helpPanelControls} >
+                                <div className={`countdown-help`}>
+                                    <h2>How to Play</h2>
+                                    <p>Find the nine letter word hidden in the conundrum.</p>
+                                    <ul>
+                                        <li>Your guess must be a valid 9-letter word (in the Oxford Dictionary).</li>
+                                        <li>You can make five guesses on each Conundrum. A new Conundrum is released daily at midnight.</li>
+                                        <li>If on <b>Easy mode</b>, the colour of the tiles will change to show how close your guess was to the word.</li>
+                                    </ul>
+                                    <h3>Examples</h3>
+                                    <CountdownRow text="HINDRANCE" colour="var(--winterblue)" index={0} />
+                                    <p><b>H</b> is in the correct place.</p>
+                                    <CountdownRow text="FORECOURT" colour="var(--winteramber)" index={4} />
+                                    <p><b>C</b> is in the word but in the wrong spot.</p>
+                                    <CountdownRow text="CROISSANT" colour="var(--wintergrey)" index={7} />
+                                    <p><b>N</b> is not in the word.</p>
+                                </div>
+                            </GameDisclosure>
                         </>}
-                        {showPanel === 'stats' && 
-                            <GameNavbarButton onClick={() => { setAutoHideGame(false); setShowPanel('game'); }} button={<Icon iconName="cross" iconProps={{viewBox: "0 0 256 256", height: "30px", width: "30px"}} />} />
-                        }
                     </GameNavbar>
                     {showPanel === "menu" && 
                         <GameMenu buttonText={(gameWon || gameLost) ? "See Stats" : "Play"} buttonOrder={2} menuOffset={menuOffset}>
@@ -210,7 +288,7 @@ function CountdownGameRedesign({cookies, animate} : Prop) {
                         </GameMenu>
                     }
                     {showPanel === "game" && conundrum && 
-                        <div className={`countdown-game-wrapper ${autoHideGame && (gameLost || gameWon) ? "game-panel-hide" : ""}`} style={{animationDelay: "2000ms"}}>
+                        <div className={`countdown-game-wrapper`} style={{animationDelay: "2000ms"}}>
                             <div className="countdown-game">
                                 <div className="countdown-prompt-table">
                                     <div className="countdown-row">
@@ -228,16 +306,12 @@ function CountdownGameRedesign({cookies, animate} : Prop) {
                                 <div className="countdown-answer-table">
                                     {
                                         [...Array(MAX_GUESSES).keys()].map(
-                                            (i) => <div key={'answer-row-'+i} className="countdown-row">
+                                            (i) => <div key={'answer-row-'+i} className={`countdown-row ${guessInvalid && i == previousGuesses.length ? "countdown-row-incorrect" : ""}`}>
                                             {
                                                 [...Array(9).keys()].map(
                                                     (j) =>  
                                                     <div key={"answer-cell-"+j} 
-                                                    className={`countdown-square countdown-${previousGuesses.length === i ? 
-                                                        "blank" : 
-                                                        previousGuessesColours[i] ? (difficulty === 'easy' ? previousGuessesColours[i][j] : (previousGuesses[i] === conundrum.answer ? 'blue' : 'grey')) : "blank"} 
-                                                        ${previousGuesses.length === i && currentAnswer[j] ? "countdown-square-filled" : ""}`
-                                                        }
+                                                    className={getCellClass(i, j, conundrum)}
                                                     style={previousGuessesColours[i] ? {animationDelay: `${j * 100}ms`, transitionDelay: `${j * 100 + 500}ms`} : {}}> 
                                                         {
                                                             previousGuesses.length === i ?
@@ -258,45 +332,39 @@ function CountdownGameRedesign({cookies, animate} : Prop) {
                                     }
                                 </div>
                                 {
-                                    isMobile ? 
-                                        (
-                                            <MobileKeyboard onClick={handleMobileKeyPress}/>
-                                        ) :
-                                        (
-                                            <div className="countdown-buttons-container">
-                                                <button
-                                                    onClick={handleDeleteButton}
-                                                    className="countdown-delete-button atkinson-hyperlegible-mono countdown-text countdown-text-med countdown-text-white">
-                                                        {"<"}
-                                                </button>
-                                                <button 
-                                                    onClick={handleSubmitButton}
-                                                    className="countdown-enter-button atkinson-hyperlegible-mono countdown-text countdown-text-med countdown-text-white">
-                                                        ENTER
-                                                </button>
+                                    gameLost && <div className="countdown-fail-container">
+                                        <hr className="countdown-hr" />
+                                        <div className="countdown-answer-table">
+                                            <div className="countdown-row">
+                                                {
+                                                    [...Array(9).keys()].map(
+                                                        (i) => 
+                                                        <div key={"prompt-cell-"+i} className="countdown-square countdown-square-prompt" style={{animationDelay: `${i * 100 + 1000}ms`}}> 
+                                                            <p className="countdown-text countdown-text-white atkinson-hyperlegible-mono">{conundrum.answer[i].toUpperCase()}</p> 
+                                                        </div>
+                                                    )
+                                                }
                                             </div>
-                                        )
+                                        </div>
+                                    </div>
+                                }
+                                {
+                                    isMobile ? 
+                                        (<MobileKeyboard onClick={handleMobileKeyPress}/>) :
+                                        (<div className="countdown-buttons-container">
+                                            <button
+                                                onClick={handleDeleteButton}
+                                                className="countdown-delete-button atkinson-hyperlegible-mono countdown-text countdown-text-med countdown-text-white">
+                                                    <Icon iconName="delete" iconProps={{width: "50px", height: "50px"}} pathProps={{stroke: "rgb(255, 255, 255)", fill: "rgb(255, 255, 255)"}}/>
+                                            </button>
+                                            <button 
+                                                onClick={handleSubmitButton}
+                                                className="countdown-enter-button atkinson-hyperlegible-mono countdown-text countdown-text-med countdown-text-white">
+                                                    ENTER
+                                            </button>
+                                        </div>)
                                 }
                             </div>
-                        </div>
-                    }
-                    {showPanel === "stats" && 
-                        <div className={`countdown-stats`}>
-                            <h2>Statistics</h2>
-                            <StatisticsNumbers stats={
-                                [
-                                    {title: "Played", value: statistics.played},
-                                    {title: "Win %", value: Math.floor(100 * statistics.won / statistics.played) || 0},
-                                    {title: "Current Streak", value: streak},
-                                    {title: "Max Streak", value: statistics.maxStreak}
-                                ]
-                                } hr={false}/>
-                            <StatisticsBarChart 
-                                title="GUESS DISTRIBUTION"
-                                highlight={previousGuesses.length.toString()}
-                                highlightColour="var(--winterblue)"
-                                stats={barStatistics}
-                            />
                         </div>
                     }
             </GameContainer>

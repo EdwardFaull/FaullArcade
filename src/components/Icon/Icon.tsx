@@ -3,8 +3,6 @@ import React, { ReactNode } from "react";
 
 export default function Icon({iconName, iconProps={}, pathProps={}} : IconProps) {
 
-
-
     const icons: {[key: string]: ReactNode} = {
         "arrow down": 
             <svg xmlns="http://www.w3.org/2000/svg" height="7" width="7" {...iconProps}>
@@ -49,20 +47,31 @@ export default function Icon({iconName, iconProps={}, pathProps={}} : IconProps)
         "cross": 
             <svg id="cross" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" {...iconProps}>
                 <g id="Layer_6" data-name="Layer 6">
-                <rect x="-1.88" y="114.98" width="259.76" height="25" rx="13.02" ry="13.02" transform="translate(309.02 128) rotate(135)" style={{stroke: "#000", strokeMiterlimit: 10}}/>
-                <rect x="-1.88" y="114.98" width="259.76" height="25" rx="13.02" ry="13.02" transform="translate(128 -53.02) rotate(45)" style={{stroke: "#000", strokeMiterlimit: 10}}/>
+                <rect x="-1.88" y="114.98" width="259.76" height="25" rx="13.02" ry="13.02" transform="translate(309.02 128) rotate(135)" style={{stroke: "#000", strokeMiterlimit: 10, ...pathProps}}/>
+                <rect x="-1.88" y="114.98" width="259.76" height="25" rx="13.02" ry="13.02" transform="translate(128 -53.02) rotate(45)" style={{stroke: "#000", strokeMiterlimit: 10, ...pathProps}}/>
                 </g>
             </svg>,
         "chevron": 
             <svg id="chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" {...iconProps}>
-                <path d="M180.84,53.43c4.81-4.81,4.81-12.6,0-17.41s-12.6-4.81-17.41,0l-.02.04-91.87,91.86v.15l91.87,91.87.02.04c4.81,4.81,12.6,4.81,17.41,0s4.81-12.6,0-17.41l-74.47-74.64,74.48-74.49h-.01Z" style={{stroke: "#000", strokeMiterlimit: 10}}/>
+                <path d="M180.84,53.43c4.81-4.81,4.81-12.6,0-17.41s-12.6-4.81-17.41,0l-.02.04-91.87,91.86v.15l91.87,91.87.02.04c4.81,4.81,12.6,4.81,17.41,0s4.81-12.6,0-17.41l-74.47-74.64,74.48-74.49h-.01Z" style={{stroke: "#000", strokeMiterlimit: 10, ...pathProps}}/>
             </svg>,
         "delete": 
             <svg id="delete" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" {...iconProps}>
-                <path d="M239.22,128v74.37c0,8.63-7,15.63-15.63,15.63h-119.08c-4.43,0-8.65-1.88-11.62-5.17L16.54,128,92.88,43.17c2.96-3.29,7.19-5.17,11.62-5.17h119.08c8.63,0,15.63,7,15.63,15.63v74.37Z" style={{fillOpacity: "0.0", stroke: "#000", strokeMiterlimit: 10, strokeWidth: "18px"}}/>
-                <rect x="80.47" y="120.01" width="159.32" height="18" rx="7.99" ry="7.99" transform="translate(363.86 105.28) rotate(135)"/>
-                <rect x="80.47" y="120.01" width="159.32" height="18" rx="7.99" ry="7.99" transform="translate(137.41 -75.74) rotate(45)"/>
-            </svg>
+                <path d="M239.22,128v74.37c0,8.63-7,15.63-15.63,15.63h-119.08c-4.43,0-8.65-1.88-11.62-5.17L16.54,128,92.88,43.17c2.96-3.29,7.19-5.17,11.62-5.17h119.08c8.63,0,15.63,7,15.63,15.63v74.37Z" style={{fillOpacity: "0.0", stroke: "#000", strokeMiterlimit: 10, strokeWidth: "18px", ...pathProps}}/>
+                <rect x="80.47" y="120.01" width="159.32" height="18" rx="7.99" ry="7.99" transform="translate(363.86 105.28) rotate(135)" style={{...pathProps}}/>
+                <rect x="80.47" y="120.01" width="159.32" height="18" rx="7.99" ry="7.99" transform="translate(137.41 -75.74) rotate(45)" style={{...pathProps}}/>
+            </svg>,
+        "stats":
+        <svg id="stats" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" {...iconProps}>
+            <rect x="31.86" y="118.08" width="64.06" height="106.71" style={{fillOpacity: 0.0, stroke: "#000", strokeMiterlimit: 10, strokeWidth: "18px", ...pathProps}}/>
+            <rect x="95.92" y="49.84" width="64.06" height="174.94" style={{fillOpacity: 0.0, stroke: "#000", strokeMiterlimit: 10, strokeWidth: "18px", ...pathProps}}/>
+            <rect x="160.08" y="91.41" width="64.06" height="133.37" style={{fillOpacity: 0.0, stroke: "#000", strokeMiterlimit: 10, strokeWidth: "18px", ...pathProps}}/>
+        </svg>,
+        "help":
+        <svg id="help" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" {...iconProps}>
+            <circle cx="128" cy="128" r="96.02" style={{fillOpacity: 0.0, stroke: "#000", strokeMiterlimit: 10, strokeWidth: "18px", ...pathProps}}/>
+            <text transform="translate(84.04 185.54)" style={{fontFamily: "ArialMT, Arial", fontSize: "160px"}}><tspan x="0" y="0">?</tspan></text>
+        </svg>
     };
 
     return icons[iconName];

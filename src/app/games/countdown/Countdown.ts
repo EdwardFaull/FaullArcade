@@ -1,5 +1,6 @@
 import { Conundrum, ConundrumData } from "@/types";
 import Conundrums from "./conundrums-sample.json";
+import PossibleWords from "./word-possible.json";
 import { Cookies } from "react-cookie";
 
 const START_DATE = new Date(2025, 1, 4);
@@ -30,6 +31,10 @@ function readData(): ConundrumData[] {
 
 function compareDates(d1: Date, d2: Date): boolean {
     return d1.getDate() == d2.getDate() && d1.getMonth() == d2.getMonth() && d1.getFullYear() == d2.getFullYear()
+}
+
+export function isGuessValid(guess: string): boolean {
+    return PossibleWords["possibleWords"].includes(guess);
 }
 
 export function checkAnswer(guess: string, conundrum: Conundrum, cookies: Cookies): boolean {

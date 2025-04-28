@@ -24,6 +24,7 @@
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
     animation: box-width .5s cubic-bezier(.23,.53,.69,.88), box-height .5s cubic-bezier(.46,.05,.59,.82);
     transition: background-color 0.75s ease-in-out;
+    overflow: hidden;
 }
 
 .game-button-start{

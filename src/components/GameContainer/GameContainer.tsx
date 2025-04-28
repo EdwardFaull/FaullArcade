@@ -5,21 +5,20 @@ export type GameContainerProps = {
     children: ReactNode;
     menuColour: string;
     gameColour: string;
-    gameFadeDelay: number;
     onGameStart: () => void;
     onGameWon: () => void;
     onGameLost: () => void;
     onGameReset: () => void;
 }
 
-export default function GameContainer({children, menuColour, gameColour, gameFadeDelay, onGameStart, onGameWon, onGameLost, onGameReset} : GameContainerProps) {
+export default function GameContainer({children, menuColour, gameColour, onGameStart, onGameWon, onGameLost, onGameReset} : GameContainerProps) {
     const context = useContext(GameContext);
 
     if(!context){
         return (<></>);
     }
 
-    const { gameState, setShowPanel, gameWon, gameLost } = context;
+    const { gameState, setShowPanel } = context;
 
     useEffect(() => {
         const handleGameReset = async () => {
@@ -29,17 +28,12 @@ export default function GameContainer({children, menuColour, gameColour, gameFad
         const handleGameStart = async () => {
             onGameStart();
             await setTimeout(() => { setShowPanel("game") }, 1500);
-            if(gameWon || gameLost){
-                await setTimeout(() => setShowPanel("stats"), gameFadeDelay);
-            }
         }
         const handleGameWon = async () => {
             onGameWon();
-            await setTimeout(() => setShowPanel("stats"), gameFadeDelay);
         }
         const handleGameLost = async () => {
             onGameLost();
-            await setTimeout(() => setShowPanel("stats"), gameFadeDelay);
         }
 
         switch(gameState){

@@ -2,7 +2,7 @@ import { CountdownDifficulty, MinesweeperDifficulty } from "@/types";
 import { createContext, ReactNode } from "react";
 
 export type Panel = "menu" | "game" | "stats" | "help";
-export type GameState = "menu" | "started" | "won" | "lost";
+export type GameState = "menu" | "started" | "won" | "lost" | "finished";
 
 
 export type GameContextProps = {

@@ -100,12 +100,21 @@
     margin: 0 auto;
 }
 
+.countdown-help-table{
+    display: table;
+    border-spacing: 2px;
+}
+
 .countdown-answer-table{
     position: relative;
     display: table;
     border-spacing: 8px;
     margin: 0 auto 16px auto;
     animation: countdown-table-fade 1s ease-in-out forwards;
+}
+
+.countdown-fail-container{
+    animation: countdown-table-fade 0.35s ease-in-out forwards;
 }
 
 @keyframes countdown-table-fade {
@@ -115,6 +124,19 @@
 
 .countdown-row{
     display: table-row;
+    position: relative;
+}
+
+.countdown-row-incorrect {
+    animation: countdown-row-shake 0.5s linear 0.1s forwards;
+}
+
+@keyframes countdown-row-shake {
+    0% { left: 0px }
+    16.7% { left: 10px }
+    50% { left: -10px }
+    83.3% { left: 10px }
+    100% { left: 0px }
 }
 
 .countdown-blue{
@@ -127,6 +149,17 @@
     49% {background-color: transparent;}
     50% {background-color: var(--winterblue);}
     100% {background-color: var(--winterblue); border: none; }
+}
+
+.countdown-square-correct{
+    animation: countdown-square-jump 1.8s linear forwards;
+}
+
+@keyframes countdown-square-jump {
+    0% { top: 0px }
+    80% { top: 0px }
+    90% { top: -10px }
+    100% { top: 0px }
 }
 
 .countdown-amber{
@@ -179,11 +212,22 @@
     max-width: 75px;
     max-height: 75px;
     display: table-cell;
+    position: relative;
     vertical-align: middle;
     border-radius: 20%;
     box-sizing: border-box;
     border: 1px solid rgba(0, 0, 0, 0.25);
     transition: box-shadow 1s ease-in-out, border 1s ease-in-out;
+}
+
+.countdown-help-square{
+    width: 50px;
+    height: 50px;
+    display: table-cell;
+    vertical-align: middle;
+    border-radius: 20%;
+    box-sizing: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.25);
 }
 
 .countdown-square-filled{
@@ -273,12 +317,19 @@
     height: 75px;
     width: 117px;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .countdown-stats{
     width: 60%;
     height: 100%;
-    margin-top: 4rem;
+}
+
+.countdown-help{
+    width: max-content;
+    height: 100%;
 }
 
 .countdown-stats-close{
@@ -303,14 +354,16 @@
 }
 
 
-
 @media(max-width: 768px){
     .countdown-prompt-table{ border-spacing: 0.5vw; margin-top: 48px;}
     .countdown-answer-table{ border-spacing: 0.5vw; }
     .countdown-square{ width: 10vw; height: 10vw; }
     .countdown-text{ font-size: 5vw; }
     .countdown-enter-button{ height: 9vw; width: 18vw; font-size: 4.5vw; }
+    .countdown-delete-button{ height: 9vw; width: 18vw; font-size: 4.5vw; }
     .countdown-difficulty-button{ position: relative; top: 0px; right: 0px; }
     .countdown-game-wrapper{ display: flex; flex-direction: column-reverse; align-items: flex-end; justify-content: flex-end; }
     .countdown-stats{width: 100%;}
+    .countdown-help{width: 100%;}
+    .countdown-help-square{ width: 8vw; height: 8vw; }
 }

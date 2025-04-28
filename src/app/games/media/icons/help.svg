@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="help" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <g id="Layer_12" data-name="Layer 12">
+    <circle cx="128" cy="128" r="96.02" style="fill: none; stroke: #000; stroke-miterlimit: 10; stroke-width: 12px;"/>
+    <text transform="translate(84.04 180.54)" style="font-family: ArialMT, Arial; font-size: 158.01px;"><tspan x="0" y="0">?</tspan></text>
+  </g>
+</svg>
