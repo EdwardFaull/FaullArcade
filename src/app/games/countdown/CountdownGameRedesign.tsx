@@ -196,7 +196,7 @@ function CountdownGameRedesign({cookies, animate} : Prop) {
                     (previousGuesses[i] === conundrum.answer ? 'blue' : 'grey')
                 ) : "blank";
         const filledClass = previousGuesses.length === i && currentAnswer[j] ? "countdown-square-filled" : "";
-        const animateClass = gameState === 'finished' ? "" : (colourClass.includes("blue") ? "countdown-square-correct" : "");
+        const animateClass = gameState === 'finished' ? "" : (colourClass.includes("blue") ? "countdown-blue-jump" : "");
         return `countdown-square countdown-${colourClass} ${filledClass} ${animateClass}`;
     }
 
@@ -236,7 +236,7 @@ function CountdownGameRedesign({cookies, animate} : Prop) {
                             bg="var(--winterwhite)" 
                             fullscreen
                             {...statPanelControls} >
-                                <div className={`countdown-stats`}>
+                                <>
                                     <h2>Statistics</h2>
                                     <StatisticsNumbers stats={
                                         [
@@ -252,10 +252,10 @@ function CountdownGameRedesign({cookies, animate} : Prop) {
                                         highlightColour="var(--winterblue)"
                                         stats={barStatistics}
                                     />
-                                </div>
+                                </>
                             </GameDisclosure>
                             <GameDisclosure button={<Icon iconName="help" iconProps={{...GAME_NAVBAR_ICON_DIM}}/>} bg="var(--winterwhite)" {...helpPanelControls} >
-                                <div className={`countdown-help`}>
+                                <>
                                     <h2>How to Play</h2>
                                     <p>Find the nine letter word hidden in the conundrum.</p>
                                     <ul>
@@ -270,7 +270,7 @@ function CountdownGameRedesign({cookies, animate} : Prop) {
                                     <p><b>C</b> is in the word but in the wrong spot.</p>
                                     <CountdownRow text="CROISSANT" colour="var(--wintergrey)" index={7} />
                                     <p><b>N</b> is not in the word.</p>
-                                </div>
+                                </>
                             </GameDisclosure>
                         </>}
                     </GameNavbar>

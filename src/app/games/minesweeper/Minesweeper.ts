@@ -182,6 +182,13 @@ export function flagCell(board: MinesweeperBoard, target: Coordinate): Minesweep
     return board;
 }
 
+export function getStatistics(difficulty: MinesweeperDifficulty, setGamesPlayed : React.Dispatch<any>, setGamesWon : React.Dispatch<any>) : void {
+    const gamesPlayed = JSON.parse(localStorage.getItem(`ms-${difficulty}-played`) || "0");
+    const gamesWon = JSON.parse(localStorage.getItem(`ms-${difficulty}-won`) || "0");
+    setGamesPlayed(gamesPlayed);
+    setGamesWon(gamesWon);
+}
+
 export function logStatistics(board: MinesweeperBoard | undefined, setGamesPlayed : React.Dispatch<any>, setGamesWon : React.Dispatch<any>) : void {
 
     const difficulty = board?.difficulty;

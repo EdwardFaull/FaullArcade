@@ -46,8 +46,8 @@ export type NavbarProps = {
 
 export type IconProps = {
     iconName: string;
-    iconProps: {[id: string]: string};
-    pathProps?: {[id: string]: string};
+    iconProps: any;
+    pathProps?: any;
 }
 
 export type ExpandableProps = {

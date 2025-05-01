@@ -3,18 +3,20 @@ import React, { act, useEffect, useMemo, useState } from "react";
 import "@/app/layout.css";
 import "./minesweepergame.css";
 import { Coordinate, AnimContainerProps, MinesweeperBoard, MinesweeperCell, MinesweeperDifficulty, MinesweeperStatus } from "@/types";
-import { cloneMinesweeperBoard, flagCell, handleClick, initMinesweeperBoard, logStatistics, showMines } from "./Minesweeper";
+import { cloneMinesweeperBoard, flagCell, getStatistics, handleClick, initMinesweeperBoard, logStatistics, showMines } from "./Minesweeper";
 import MinesweeperButton from "./MinesweeperButton";
 import Icon from "@/components/Icon/Icon";
 import AnimContainer from "../../../components/AnimContainer/AnimContainer";
 import MinesweeperBoardSummary from "./MinesweeperBoardSummary";
 import { useInterval } from "@/app/utils/useInterval";
-import { GameProvider } from "@/components/GameContext/GameContext";
+import { GameProvider, GameState, Panel } from "@/components/GameContext/GameContext";
 import GameContainer from "@/components/GameContainer/GameContainer";
 import GameMenu from "@/components/GameMenu/GameMenu";
 import StatisticsNumbers from "@/components/StatisticsNumbers/StatisticsNumbers";
 import { isMobile } from "react-device-detect";
-import GameNavbar from "@/components/GameNavbar/GameNavbar";
+import GameNavbar, { GAME_NAVBAR_ICON_DIM } from "@/components/GameNavbar/GameNavbar";
+import useDisclosure from "@/app/utils/useDisclosure";
+import GameDisclosure from "@/components/GameDisclosure/GameDisclosure";
 
 export default function MinesweeperGame() {
 
@@ -29,12 +31,15 @@ export default function MinesweeperGame() {
   const [gamesWon, setGamesWon] = useState(0);
   const [action, setAction] = useState<"open" | "flag">("open");
   
-  const [gameState, setGameState] = useState<"menu" | "started" | "won" | "lost">("menu");
-  const [showPanel, setShowPanel] = useState<"menu" | "game" | "stats" | "help">("menu");
+  const [gameState, setGameState] = useState<GameState>("menu");
+  const [showPanel, setShowPanel] = useState<Panel>("menu");
   const [difficulty, setDifficulty] = useState<MinesweeperDifficulty>("beginner");
   const difficulties : MinesweeperDifficulty[] = ['beginner', 'intermediate', 'expert'];
   const [bestTimes, setBestTimes] = useState<{[key : string]: number}>({});
 
+  const statPanelControls = useDisclosure();
+  const helpPanelControls = useDisclosure();
+      
   const [time, setTime] = useState(0);
   const interval = useInterval(() => setTime((prevTime) => prevTime + 1), 1000);
 
@@ -58,15 +63,17 @@ export default function MinesweeperGame() {
 
   const onGameStart = () => {
     setTime(0);
-      setBoard(initMinesweeperBoard(difficulty));
-      setPageLoad(true);
-      setTimeout(() => {
-        interval.startInterval();
-      }, 2000);
+    setBoard(initMinesweeperBoard(difficulty));
+    getStatistics(difficulty, setGamesPlayed, setGamesWon);
+    setPageLoad(true);
+    setTimeout(() => {
+      interval.startInterval();
+    }, 2000);
   }
 
   const onGameLost = () => {
     logStatistics(board, setGamesPlayed, setGamesWon);
+    setTimeout(() => statPanelControls.onOpen(), 3500);
   }
 
   const onGameWon = () => {
@@ -80,6 +87,7 @@ export default function MinesweeperGame() {
       }
       return prevState;
     });
+    setTimeout(() => statPanelControls.onOpen(), 3000);
   };
 
   const onGameReset = () => {
@@ -193,7 +201,7 @@ export default function MinesweeperGame() {
     }
     if(cell.status == "U"){
       const multiplier = difficultyDelay[difficulty].start;
-      return (i + j) * multiplier + 1500;
+      return (i + j) * multiplier + 500;
     }
     if(cell.status == "O"){
       const multiplier = difficultyDelay[difficulty].open;
@@ -226,7 +234,14 @@ export default function MinesweeperGame() {
     return mainClass + explodeClass;
   }
 
+  const handlePlayAgain = () => {
+    statPanelControls.onClose();
+    setGameState('menu');
+  }
+
   const menuOffset = useMemo(() => gameState === 'menu' ? 200 : 0, [gameState]);
+
+  const helpFlagProps = {viewBox: "0 0 256 256", style: {transform: "translate(0px, 7px)"}, ...GAME_NAVBAR_ICON_DIM};
 
   return (
     <>
@@ -234,12 +249,54 @@ export default function MinesweeperGame() {
         <GameContainer
           menuColour="var(--winterorange-pale)"
           gameColour="var(--winterwhite)"
-          gameFadeDelay={6000}
           onGameStart={onGameStart}
           onGameWon={onGameWon}
           onGameLost={onGameLost}
           onGameReset={onGameReset}>
-            <GameNavbar />
+            <GameNavbar enabled={!(statPanelControls.isOpen || helpPanelControls.isOpen)}>
+              {showPanel === 'game' && <>
+                <GameDisclosure 
+                button={<Icon iconName="stats" iconProps={{...GAME_NAVBAR_ICON_DIM}}/>} 
+                bg="var(--winterwhite)" 
+                fullscreen
+                {...statPanelControls}>
+                    <>
+                      <h2>Statistics</h2>
+                      <StatisticsNumbers hr stats={
+                        [{title: "Played", value: gamesPlayed}, 
+                        {title: "Win %", value: Math.floor(100 * gamesWon / gamesPlayed)},
+                        {title: "Best Time", value: bestTimes[difficulty]}]} />
+                      <div className="minesweeper-stats-summary">
+                        {(gameState === 'won' || gameState === 'lost') && <>
+                          {gameState === 'won' && <p className="minesweeper-menu-text pt-serif">You completed the board in {time} seconds!</p>}
+                          {gameState === 'lost' && <p className="minesweeper-menu-text pt-serif">You hit a mine!</p>}
+                          <p className="minesweeper-menu-text pt-serif">Your field:</p>
+                          {board && <MinesweeperBoardSummary board={board} />}
+                          <MinesweeperButton onClick={handlePlayAgain}>Play again?</MinesweeperButton>
+                        </>}
+                      </div>
+                      
+                    </>
+                </GameDisclosure>
+                <GameDisclosure 
+                button={<Icon iconName="help" 
+                iconProps={{...GAME_NAVBAR_ICON_DIM}}/>} 
+                bg="var(--winterwhite)" 
+                {...helpPanelControls}>
+                    <>
+                        <h2>How to Play</h2>
+                        <p>Clear the minefield by opening all cells not containing a mine.</p>
+                        <ul>
+                            <li>Flag cells by {isMobile ? <>pressing the <Icon iconName="flag" iconProps={helpFlagProps}/> to turn on flagging mode and press the cell. Turn off flagging mode by pressing the <Icon iconName="flag" iconProps={helpFlagProps}/> again.</> : <>right-clicking on the cell.</>}</li>
+                            <li>If you open a cell containing a mine, it will explode and the game is over.</li>
+                            <li>The number in a cell represents how many of the eight adjacent cells contains a mine. If the cell is blank, there are no adjacent mines.</li>
+                        </ul>
+                        <h3>Examples</h3>
+                    </>
+                </GameDisclosure>
+            </>}
+            </GameNavbar>
+
             {showPanel === 'menu' && 
               <GameMenu buttonText="Play" buttonOrder={5} menuOffset={menuOffset}>
                 <AnimContainer key={0} order={0} delay={150} offset={menuOffset} open={gameState === 'menu'} close={gameState !== 'menu'}>
@@ -271,10 +328,10 @@ export default function MinesweeperGame() {
                 }
               </GameMenu>
             }
-            {showPanel === 'game' &&
+            {showPanel === 'game' && gameState !== 'menu' &&
               <div 
-                className={`minesweeper-game-panel ${gameState !== 'started' ? "minesweeper-panel-hide" : ""}`} 
-                style={{animationDelay: "4000ms"}}>
+                className="minesweeper-game-panel"
+                style={{animationDelay: "4000ms", alignItems: difficulty === 'expert' ? "flex-end" : "center"}}>
                 <div className="minesweeper-flex-panel">
                   <div className="minesweeper-table" style={{
                     ...(isMobile ? {gap: difficulty === 'beginner' ? "0.75vw" : "0.3vw"} : {}),
@@ -317,7 +374,7 @@ export default function MinesweeperGame() {
                     }
                   </div>
                   <div className="minesweeper-game-info-panel">
-                    <div className="minesweeper-game-info-item" style={{animationDelay:"1500ms"}}>
+                    <div className="minesweeper-game-info-item" style={{animationDelay:"1000ms"}}>
                       <span className="minesweeper-info-text pt-serif">{time}</span>
                     </div>
                     <div onClick={handleFlagClick} className={`minesweeper-game-info-item ${action === 'flag' ? "minesweeper-game-info-item-active" : ""}`} style={{animationDelay:"1800ms"}}>
@@ -327,35 +384,6 @@ export default function MinesweeperGame() {
                   </div>
                 </div>
               </div>
-            }
-            {
-              showPanel === 'stats' && pageLoad && <div className={"minesweeper-summary-panel"} style={{animationDelay: "3600ms"}}>
-              <>
-                <AnimContainer order={0} delay={150} open={gameState === 'won' || gameState === 'lost'} close={!(gameState === 'won' || gameState === 'lost')}>
-                  <p className="minesweeper-menu-text pt-serif minesweeper-heading" style={{marginTop: "0px"}}>
-                    {gameState === 'won' ? 
-                      <>You completed the board in <b>{time} seconds</b>!</> :
-                      <>You hit a mine!</>
-                    }
-                  </p>
-                </AnimContainer>
-                <AnimContainer order={1} delay={150} open={gameState === 'won' || gameState === 'lost'} close={!(gameState === 'won' || gameState === 'lost')}>
-                  <StatisticsNumbers hr stats={[{title: "Played", value: gamesPlayed}, {title: "Win %", value: Math.floor(100 * gamesWon / gamesPlayed)}]} />
-                </AnimContainer>
-                <AnimContainer order={2} delay={150} open={gameState === 'won' || gameState === 'lost'} close={!(gameState === 'won' || gameState === 'lost')}>
-                  <p className="minesweeper-menu-text pt-serif">Your field:</p>
-                  {board && <MinesweeperBoardSummary board={board} />}
-                </AnimContainer>
-                <AnimContainer order={3} delay={150} open={gameState === 'won' || gameState === 'lost'} close={!(gameState === 'won' || gameState === 'lost')}>
-                  <MinesweeperButton onClick={() => {setGameState('menu');}}>Play again?</MinesweeperButton>
-                </AnimContainer>
-              </>
-            </div>
-            }
-            {
-              showPanel === 'help' && <>
-                
-              </>
             }
         </GameContainer>
       </GameProvider>

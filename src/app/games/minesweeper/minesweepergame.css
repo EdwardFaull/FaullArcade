@@ -35,6 +35,11 @@
 
 .minesweeper-game-panel{
     position: relative;
+    overflow: scroll;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .minesweeper-table{
@@ -310,6 +315,19 @@
 
 }
 
+.minesweeper-stats{
+    width: 60%;
+    height: 100%;
+}
+
+.minesweeper-help{
+    width: 60%;
+    height: 100%;
+}
+
+.minesweeper-stats-summary{
+    text-align: center;
+}
 
 .ms-hr{
     border: none;
@@ -339,6 +357,8 @@
 
 @media(max-width: 576px){
     .minesweeper-flex-panel{ flex-direction: column; }
-    .minesweeper-game-info-panel{ display: flex; margin-left: 0px; }
+    .minesweeper-game-info-panel{ display: flex; margin-left: 0px; padding: 8px; }
     .minesweeper-game-info-item{ margin-right: 8px; margin-left: 8px; margin-bottom: 0px; }
+    .minesweeper-stats{width: 100%;}
+    .minesweeper-help{width: 100%;}
 }

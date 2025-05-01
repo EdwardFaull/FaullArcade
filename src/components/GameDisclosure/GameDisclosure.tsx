@@ -16,21 +16,23 @@ export type GameDisclosureProps = {
 export default function GameDisclosure( {button, children, bg, fullscreen=false, isOpen, onOpen, onClose} : GameDisclosureProps ) {
 
     const [zIndex, setZIndex] = useState(-1);
+    const [display, setDisplay] = useState("none");
 
     useEffect(() => {
         if(!isOpen){
-            setTimeout(() => setZIndex(-1), 350);
+            setTimeout(() => {setZIndex(-1); setDisplay("none")}, 350);
         }
         else{
             setZIndex(100);
+            setDisplay("flex");
         }
     }, [isOpen])
 
     return ( 
     <>
         <GameNavbarButton onClick={onOpen} button={button} />
-        <div className="game-disclosure-container" style={{zIndex : zIndex}}>
-            <div className="game-disclosure-overlay" style={{backgroundColor: isOpen ? "rgba(0, 0, 0, 0.25)" : "transparent"}}/>
+        <div className="game-disclosure-container" style={{zIndex : zIndex, display: display}}>
+            <div className={`game-disclosure-overlay ${isOpen ? 'game-disclosure-overlay-open' : 'game-disclosure-overlay-closed'}`}/>
             <div className={`game-disclosure-box ${isOpen ? 'game-disclosure-open' : 'game-disclosure-closed'}`} 
                 style={{backgroundColor: bg, height: fullscreen ? "100%" : "max-content"}}>
                 <>
@@ -38,7 +40,9 @@ export default function GameDisclosure( {button, children, bg, fullscreen=false,
                         <GameNavbarButton onClick={onClose} button={<Icon iconName="cross" iconProps={{...GAME_NAVBAR_ICON_DIM}}/>} />
                     </div>
                     <div className="game-disclosure-content">
-                        {children}
+                        <div className="game-disclosure-content-box">
+                            {children}
+                        </div>
                     </div>
 
                 </>
