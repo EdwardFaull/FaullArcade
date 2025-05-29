@@ -201,6 +201,16 @@ export function rotateShape(board: TetrisBoard): TetrisBoard {
         board.pieceShape = rotatedShape;
         board = placeShape(board);
     }
+    else{
+        const newCoords = [board.pieceCoords[0], board.pieceCoords[1]];
+        newCoords[1] += shapeClone[0].length - 1;
+        if(canMoveShape(board, rotatedShape, newCoords)){
+            board = liftShape(board);
+            board.pieceCoords = newCoords;
+            board.pieceShape = rotatedShape;
+            board = placeShape(board);
+        }
+    }
 
     return board;
 }
@@ -258,7 +268,7 @@ export function deleteCompletedRows(board: TetrisBoard): TetrisBoard {
     return board;
 }
 
-function isPieceDead(board: TetrisBoard): boolean {
+export function isPieceDead(board: TetrisBoard): boolean {
     const pieceShape = board.pieceShape;
     const pieceY = board.pieceCoords[0];
     const pieceX = board.pieceCoords[1];

@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect, useRef, useState } from "react";
-import { cloneTetrisBoard, deleteCompletedRows, getHighScore, gravityStep, initTetrisBoard, moveShape, placeTetronimo, rotateShape, skipShape, TETRIS_BOARD_HEIGHT, TETRIS_BOARD_WIDTH, TETRIS_COLOURS, updateHighScore } from "./Tetris";
+import { cloneTetrisBoard, deleteCompletedRows, getHighScore, gravityStep, initTetrisBoard, isPieceDead, moveShape, placeTetronimo, rotateShape, skipShape, TETRIS_BOARD_HEIGHT, TETRIS_BOARD_WIDTH, TETRIS_COLOURS, updateHighScore } from "./Tetris";
 import "./tetrisgame.css"
 import { Prop, TetrisBoard, TetrisLevel } from "@/types";
 import { useKeyPress } from "@/app/utils/useKeyPress";
@@ -108,6 +108,9 @@ function TetrisGame({cookies, animate} : Prop) {
           if(newState.gameOver){
             handleGameOver(board);
           }
+          if(isPieceDead(newState)){
+            delayOnPieceComplete(newState);
+          }
           return newState;
         }
       )
@@ -126,23 +129,26 @@ function TetrisGame({cookies, animate} : Prop) {
     });
   }
 
+  const delayOnPieceComplete = (newState: TetrisBoard) => {
+    myInterval.stopInterval();
+    setTimeout(() => {
+      startGame(newState.level);
+    }, 300);
+  }
+
   const handleSkipShape = () => {
     myMutex.current?.runExclusive(
-      () => {
+      async () => {
         setBoard(
           (prevState) => {
-            const lock = levels[prevState.level - 1].intervalMillis - 500;
-            if(lock <= 0){
-              myInterval.stopInterval();
-            }
             const stateCopy = cloneTetrisBoard(prevState);
             const newState = skipShape(stateCopy);
-            if(lock <= 0){
-              setTimeout(() => {
-                startGame(newState.level);
-              }, 500);
+            console.log(prevState);
+            console.log(newState);
+            if(newState.score > prevState.score){
+              delayOnPieceComplete(newState);
             }
-            return newState
+            return newState;
           }
         )
       }

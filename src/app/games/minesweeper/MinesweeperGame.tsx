@@ -268,7 +268,7 @@ export default function MinesweeperGame() {
                         {title: "Best Time", value: bestTimes[difficulty]}]} />
                       <div className="minesweeper-stats-summary">
                         {(gameState === 'won' || gameState === 'lost') && <>
-                          {gameState === 'won' && <p className="minesweeper-menu-text pt-serif">You completed the board in {time} seconds!</p>}
+                          {gameState === 'won' && <p className="minesweeper-menu-text pt-serif">You completed the board in <b>{time} seconds!</b></p>}
                           {gameState === 'lost' && <p className="minesweeper-menu-text pt-serif">You hit a mine!</p>}
                           <p className="minesweeper-menu-text pt-serif">Your field:</p>
                           {board && <MinesweeperBoardSummary board={board} />}

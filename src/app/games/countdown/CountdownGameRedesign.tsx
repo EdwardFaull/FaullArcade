@@ -196,11 +196,11 @@ function CountdownGameRedesign({cookies, animate} : Prop) {
                     (previousGuesses[i] === conundrum.answer ? 'blue' : 'grey')
                 ) : "blank";
         const filledClass = previousGuesses.length === i && currentAnswer[j] ? "countdown-square-filled" : "";
-        const animateClass = gameState === 'finished' ? "" : (colourClass.includes("blue") ? "countdown-blue-jump" : "");
+        const animateClass = gameState === 'finished' ? "" : (colourClass.includes("blue") && previousGuesses[i] === conundrum.answer ? "countdown-blue-jump" : "");
         return `countdown-square countdown-${colourClass} ${filledClass} ${animateClass}`;
     }
 
-    const conundrumIndex = useMemo(() => getConundrumIndex(), []);
+    const conundrumIndex = useMemo(() => getConundrumIndex() + 1, []);
     const dayNode = useMemo(() => getDate(), []);
 
     return (
