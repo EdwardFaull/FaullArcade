@@ -3,6 +3,7 @@ import { Coord, TetrisBoard } from "@/types";
 import { isPageStatic } from "next/dist/build/utils";
 import { Cookies } from "react-cookie";
 import { MILLIS_IN_A_DAY } from "../countdown/Countdown";
+import { off } from "process";
 
 export const TETRIS_BOARD_WIDTH: number = 10;
 export const TETRIS_BOARD_HEIGHT: number = 20;
@@ -202,9 +203,16 @@ export function rotateShape(board: TetrisBoard): TetrisBoard {
         board = placeShape(board);
     }
     else{
-        const newCoords = [board.pieceCoords[0], board.pieceCoords[1]];
-        newCoords[1] += shapeClone[0].length - 1;
-        if(canMoveShape(board, rotatedShape, newCoords)){
+        let offset = -1;
+        for(let i = 1; i < shapeClone[0].length; i++){
+            const newCoords = [board.pieceCoords[0], board.pieceCoords[1] + i];
+            if(canMoveShape(board, rotatedShape, newCoords)){
+                offset = i;
+                break;
+            }
+        }
+        if(offset){
+            const newCoords = [board.pieceCoords[0], board.pieceCoords[1] + offset];
             board = liftShape(board);
             board.pieceCoords = newCoords;
             board.pieceShape = rotatedShape;
