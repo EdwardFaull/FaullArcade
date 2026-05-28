@@ -1,6 +1,6 @@
 import { AnimContainerProps } from "@/types";
 import React from "react";
-import "./AnimContainer.css"
+import "./animcontainer.css"
 
 export default function AnimContainer({order=1, children, delay=100, close=false, open=false, offset=0,} : AnimContainerProps) {
 
