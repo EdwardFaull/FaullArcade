@@ -81,7 +81,7 @@ export default function MinesweeperGame() {
     logStatistics(board, setGamesPlayed, setGamesWon);
     setBoard((prevState) => {
       if(prevState){
-        let stateCopy = cloneMinesweeperBoard(prevState)
+        const stateCopy = cloneMinesweeperBoard(prevState)
         const newState = showMines(stateCopy);
         return newState;
       }

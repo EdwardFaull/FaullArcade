@@ -1,3 +1,5 @@
+"use client"
+
 import { getRandomNumber } from "@/app/utils/Utils";
 import { Coord, TetrisBoard } from "@/types";
 import { isPageStatic } from "next/dist/build/utils";
@@ -313,7 +315,7 @@ function populateGuideArray(board: TetrisBoard): TetrisBoard{
                 }
             }
             let row = lowestRow + pieceY + 1;
-            let col = j + pieceX;
+            const col = j + pieceX;
             while(row < board.grid.length && board.grid[row][col] == 0){
                 newGuideBlocks.push({y: row, x: col});
                 row++;
@@ -402,7 +404,7 @@ function scoreDrop(board: TetrisBoard, translation: number): TetrisBoard{
 
 function scoreRow(board: TetrisBoard, linesCleared: number): TetrisBoard{
     const linesClearedVal = Math.min(4, linesCleared);
-    let linesClearedMultiplier = TETRIS_LINE_MULTIPLIER[linesClearedVal - 1] * board.level;
+    const linesClearedMultiplier = TETRIS_LINE_MULTIPLIER[linesClearedVal - 1] * board.level;
     const scoreAdded = board.grid[0].length * (linesClearedMultiplier * linesClearedVal);
     board.score += scoreAdded;
     return board;

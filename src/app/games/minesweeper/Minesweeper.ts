@@ -1,3 +1,5 @@
+"use client"
+
 import { getRandomNumber } from "@/app/utils/Utils";
 import { Coordinate, MinesweeperBoard, MinesweeperCell, MinesweeperDifficulty, MinesweeperStatus } from "@/types";
 

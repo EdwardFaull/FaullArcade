@@ -1,7 +1,9 @@
+"use client"
+
 import { StatisticsBarChartData } from "@/components/StatisticsBarChart/StatisticsBarChart";
 
 const getItem = (key: string) : number => {
-    return JSON.parse(localStorage.getItem(key) || "0");
+    return JSON.parse(typeof window !== "undefined" ? (localStorage.getItem(key) || "0") : "0");
 }
 
 const setItem = (key: string, value: number) => {

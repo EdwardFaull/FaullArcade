@@ -34,7 +34,7 @@ function CountdownGameRedesign({cookies, animate} : Prop) {
     const [guessInvalid, setGuessInvalid] = useState(false);
     
     const [streak, setStreak] = useState(0);
-    const [difficulty, setDifficulty] = useState<"easy"|"normal">(localStorage.getItem("countdown-difficulty") as "easy"|"normal" || "normal");
+    const [difficulty, setDifficulty] = useState<"easy"|"normal"|undefined>();
     const [gameState, setGameState] = useState<GameState>("menu");
     const [showPanel, setShowPanel] = useState<Panel>("menu");
 
@@ -67,6 +67,15 @@ function CountdownGameRedesign({cookies, animate} : Prop) {
         }
         setPreviousGuessesColours(colours);
     }, [previousGuesses])
+
+    useEffect(() => {
+        if(!difficulty){
+            setDifficulty(localStorage.getItem("countdown-difficulty") as "easy"|"normal" || "normal")
+        }
+        else{
+            localStorage.setItem("countdown-difficulty", difficulty);
+        }
+    }, [difficulty])
 
     const handleGameStart = () => {
         if(gameWon || gameLost){
@@ -117,7 +126,6 @@ function CountdownGameRedesign({cookies, animate} : Prop) {
     const handleChangeDifficulty = () => {
         const newDifficulty = difficulty === 'easy' ? 'normal' : 'easy';
         setDifficulty(newDifficulty);
-        localStorage.setItem("countdown-difficulty", newDifficulty);
     }
 
     const handleKeyPress = (event?: KeyboardEvent | null, k : string = "") => {

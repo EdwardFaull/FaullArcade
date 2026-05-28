@@ -1,5 +1,5 @@
 
-export const onMouseMove = (e: React.MouseEvent, cardRef: React.RefObject<Element | null>, rotateSize : number = 8, scale : number = 1) => {
+export const onMouseMove = (e: React.MouseEvent, cardRef: React.RefObject<HTMLElement | null>, rotateSize : number = 8, scale : number = 1) => {
         let fac_X = 0;
         let fac_Y = 0;
         if(cardRef.current){
@@ -10,7 +10,7 @@ export const onMouseMove = (e: React.MouseEvent, cardRef: React.RefObject<Elemen
         }   
     }
 
-export const onMouseLeave = (cardRef: React.RefObject<Element | null>) => {
+export const onMouseLeave = (cardRef: React.RefObject<HTMLElement | null>) => {
     if(cardRef.current){
         cardRef.current.style.transform = "rotateY(0deg) rotateX(0deg) scale(1)";
     }

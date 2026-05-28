@@ -1,7 +1,7 @@
 import { Cookies } from "react-cookie";
 import Icon from "./components/Icon/Icon";
 
-export type CountdownDifficulty = "easy" | "normal";
+export type CountdownDifficulty = "easy" | "normal" | undefined;
 
 export type TetrisBoard = {
     grid: number[][];
@@ -66,7 +66,9 @@ export type CardProps = {
     header: string;
     description? : string;
     location: string;
-    colour: string;
+    colour?: string;
+    imagePath?: string;
+    imageStyle?: string;
     callback: (s: string) => void;
 }
 

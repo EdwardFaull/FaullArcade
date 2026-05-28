@@ -20,10 +20,7 @@ export default function Navbar({router} : NavbarProps) {
             {text: "Tetris", location: "/games/tetris"},
             {text: "Minesweeper", location: "/games/minesweeper"},
             {text: "Conundrum", location: "/games/countdown"},
-        ], callback: navigate},
-        {title: {text: "Films", location: "/gallery"}, subtitles: [], callback: navigate},
-        {title: {text: "Recipes", location:"/recipes"}, subtitles: [], callback: navigate},
-        {title: {text: "Ramblings", location:"/blog"}, subtitles: [], callback: navigate}
+        ], callback: navigate}
     ]
 
     return showNavbar ? (
