@@ -70,7 +70,7 @@ function CountdownGameRedesign({cookies, animate} : Prop) {
 
     useEffect(() => {
         if(!difficulty){
-            setDifficulty(localStorage.getItem("countdown-difficulty") as "easy"|"normal" || "normal")
+            setDifficulty(localStorage.getItem("countdown-difficulty") as "easy"|"normal" || "easy")
         }
         else{
             localStorage.setItem("countdown-difficulty", difficulty);
