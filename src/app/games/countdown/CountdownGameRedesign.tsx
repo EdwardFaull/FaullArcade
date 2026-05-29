@@ -37,10 +37,10 @@ function CountdownGameRedesign({cookies, animate} : Prop) {
     const [difficulty, setDifficulty] = useState<"easy"|"normal"|undefined>();
     const [gameState, setGameState] = useState<GameState>("menu");
     const [showPanel, setShowPanel] = useState<Panel>("menu");
+    const [showShareButton, setShowShareButton] = useState<boolean>(false);
 
     const statPanelControls = useDisclosure();
     const helpPanelControls = useDisclosure();
-    
 
     useEffect(() => {
         setConundrum(selectConundrum());
@@ -80,7 +80,10 @@ function CountdownGameRedesign({cookies, animate} : Prop) {
     const handleGameStart = () => {
         if(gameWon || gameLost){
             setGameState("finished");
-            setTimeout(() => statPanelControls.onOpen(), 3000);
+            setTimeout(() => {
+                statPanelControls.onOpen();
+                setShowShareButton(true);
+            }, 3000);
         }
     }
 
@@ -89,14 +92,20 @@ function CountdownGameRedesign({cookies, animate} : Prop) {
         logExtraStat('countdown', `guess-${previousGuesses.length}`);
         setStreak((prevStreak) => prevStreak + 1);
         setTodayCompleted(true);
-        setTimeout(statPanelControls.onOpen, 3000);
+        setTimeout(() => {
+            statPanelControls.onOpen();
+            setShowShareButton(true);
+        }, 3000);
     }
     const handleGameLost = () => {
         setTodayCompleted(true);
         logStatistics('countdown', false, 0);
         resetStreak(cookies);
         setStreak(0);
-        setTimeout(statPanelControls.onOpen, 3000);
+        setTimeout(() => {
+            statPanelControls.onOpen();
+            setShowShareButton(true);
+        }, 3000);
     }
 
     const handleSubmitButton = () => {   
@@ -220,7 +229,7 @@ function CountdownGameRedesign({cookies, animate} : Prop) {
 
     const conundrumIndex = useMemo(() => getConundrumIndex() + 1, []);
     const dayNode = useMemo(() => getDate(), []);
-
+    
     return (
         <GameProvider context={{
             gameState,
@@ -367,7 +376,7 @@ function CountdownGameRedesign({cookies, animate} : Prop) {
                                     </div>
                                 }
                                 {
-                                    todayCompleted && <div className="countdown-share-container">
+                                    showShareButton && <div className="countdown-share-container">
                                         <button onClick={shareResult} className="game-button-start pt-serif">Share Your Results</button>
                                     </div>
                                 }
