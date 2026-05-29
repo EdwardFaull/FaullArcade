@@ -117,6 +117,13 @@
     animation: countdown-table-fade 0.35s ease-in-out forwards;
 }
 
+
+.countdown-share-container{
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+}
+
 @keyframes countdown-table-fade {
     from {opacity: 0%;}
     to {opacity: 100%;}

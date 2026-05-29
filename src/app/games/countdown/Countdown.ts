@@ -99,3 +99,11 @@ export function checkCompleted(cookies: Cookies, previousGuesses: string[]): boo
     const isGameOver = previousGuesses && previousGuesses.length >= 6;
     return isGameOver;
 }
+
+const colourMap: {[id: string]: string} = {'blue': '🟦', 'amber': '🟧', 'grey': '⬛'};
+
+export function getResultText(index: number, previousGuessesColours: string[][]): string{
+    return `Conundrum #${index.toLocaleString('en')}
+${previousGuessesColours.map(row => row.map(cell => colourMap[cell]).join('')).join('\r\n')}
+    `.trim();
+}

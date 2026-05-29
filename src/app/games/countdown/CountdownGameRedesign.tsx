@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { addToList, checkAnswer, checkCompleted, getConundrumIndex, getStreak, isGuessValid, resetStreak, selectConundrum } from "./Countdown";
+import { addToList, checkAnswer, checkCompleted, getConundrumIndex, getResultText, getStreak, isGuessValid, resetStreak, selectConundrum } from "./Countdown";
 import { Conundrum, Prop } from "@/types";
 import { withCookies } from "react-cookie";
 import "./conundrumgame-redux.css";
@@ -9,7 +9,7 @@ import ToggleButton from "@/components/ToggleButton/ToggleButton";
 import GameContainer from "@/components/GameContainer/GameContainer";
 import GameMenu from "@/components/GameMenu/GameMenu";
 import { GameProvider, GameState, Panel } from "@/components/GameContext/GameContext";
-import { isMobile } from "react-device-detect";
+import { isAndroid, isIOS, isMobile } from "react-device-detect";
 import MobileKeyboard from "@/components/MobileKeyboard/MobileKeyboard";
 import StatisticsNumbers from "@/components/StatisticsNumbers/StatisticsNumbers";
 import { getBarChartStatistics, getStatistics, logExtraStat, logStatistics } from "@/app/utils/statistics";
@@ -208,6 +208,16 @@ function CountdownGameRedesign({cookies, animate} : Prop) {
         return `countdown-square countdown-${colourClass} ${filledClass} ${animateClass}`;
     }
 
+    const shareResult = async () => {
+        const resultText = getResultText(conundrumIndex, previousGuessesColours);
+        if(isMobile){
+            await navigator.share({text: resultText})
+        }
+        else{
+            navigator.clipboard.writeText(resultText);
+        }
+    }
+
     const conundrumIndex = useMemo(() => getConundrumIndex() + 1, []);
     const dayNode = useMemo(() => getDate(), []);
 
@@ -354,6 +364,11 @@ function CountdownGameRedesign({cookies, animate} : Prop) {
                                                 }
                                             </div>
                                         </div>
+                                    </div>
+                                }
+                                {
+                                    todayCompleted && <div className="countdown-share-container">
+                                        <button onClick={shareResult} className="game-button-start pt-serif">Share Your Results</button>
                                     </div>
                                 }
                                 {
