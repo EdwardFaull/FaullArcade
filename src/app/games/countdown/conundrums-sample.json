@@ -61,6 +61,12 @@
       "flip": 1
     },
     {
+      "conundrum": "bugleweed",
+      "word": "bleu",
+      "antiWord": "wedge",
+      "flip": 1
+    },
+    {
       "conundrum": "cataloger",
       "word": "cargo",
       "antiWord": "teal",
@@ -202,12 +208,6 @@
       "conundrum": "stabilize",
       "word": "baize",
       "antiWord": "silt",
-      "flip": 1
-    },
-    {
-      "conundrum": "bugleweed",
-      "word": "bleu",
-      "antiWord": "wedge",
       "flip": 1
     },
     {
