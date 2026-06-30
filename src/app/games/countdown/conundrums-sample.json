@@ -57,6 +57,13 @@
             "rank": 6
         },
         {
+            "conundrum": "nightmare",
+            "word": "anthem",
+            "antiWord": "rig",
+            "flip": 0,
+            "rank": 5
+        },
+        {
             "conundrum": "discharge",
             "word": "grid",
             "antiWord": "chase",
@@ -67,20 +74,6 @@
             "conundrum": "deterrent",
             "word": "red",
             "antiWord": "tenter",
-            "flip": 0,
-            "rank": 5
-        },
-        {
-            "conundrum": "messenger",
-            "word": "em",
-            "antiWord": "negress",
-            "flip": 0,
-            "rank": 5
-        },
-        {
-            "conundrum": "nightmare",
-            "word": "anthem",
-            "antiWord": "rig",
             "flip": 0,
             "rank": 5
         },
