@@ -3,7 +3,7 @@ import Conundrums from "./conundrums-sample.json";
 import PossibleWords from "./word-possible.json";
 import { Cookies } from "react-cookie";
 
-const START_DATE = new Date(2026, 4, 22);
+const START_DATE = new Date(2026, 5, 30);
 export const MILLIS_IN_A_DAY = 86400000;
 
 
